@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from roodmri.metrics.calculate import calculate_metrics
+from roodmri.metrics import calculate_metrics
 
 """
 Benchmarking/robustness metric calculation example.

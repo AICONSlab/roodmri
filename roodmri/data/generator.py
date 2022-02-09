@@ -19,13 +19,13 @@ BASE_TRANSFORMS = [
 DEVICE = torch.device("cpu")
 
 
-class BenchmarkGenerator(object):
+class DatasetGenerator(object):
     """
     Class to generate a benchmarking datastet from a pre-existing test set.
 
-    An object of the BenchmarkGenerator class has attributes and methods
+    An object of the DatasetGenerator class has attributes and methods
     necessary to generate a benchmarking dataset. Attributes are described
-    below. The main method is generate_benchmark, which is called
+    below. The main method is generate_dataset, which is called
     to iterate over a test set and save transformed/corrupted versions of each
     sample in the test set to a folder path specified in the attributes.
 
@@ -74,13 +74,13 @@ class BenchmarkGenerator(object):
         for i, sample_dict in enumerate(self.input_files):
             filename_mappings[sample_dict['label']] = str(i + 1).zfill(6)
         self.filename_mappings = filename_mappings
-        print("WARNING: running the generate_benchmark method may consume a lot"
+        print("WARNING: running the generate_dataset method may consume a lot"
               " of your machine's storage (roughly the size of the test set x "
               "the number of transforms x the number of severity levels). "
               "Please ensure that you have enough free space in the directory "
               "specified by out_path before continuing.")
 
-    def generate_benchmark(self):
+    def generate_dataset(self):
         """
         Generate benchmarking samples.
 
@@ -125,7 +125,7 @@ class BenchmarkGenerator(object):
                     step_time = time.time() - step_start
                     print(f"{j+1}/{len(test_ds)} saved, step time: {(step_time):.4f} seconds")
                     step_start = time.time()
-        print(f"Finished. Check {self.out_path} for files.")
+        print(f"\nFinished. Check {self.out_path} for files.")
 
     def save_filename_mappings(self, path):
         """

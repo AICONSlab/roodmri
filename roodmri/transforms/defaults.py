@@ -5,7 +5,7 @@ import torchio as tio
 DEFAULT_TRANSFORM_SETTINGS = {
     'Affine': {
         'transform': tio.transforms.RandomAffine(
-            keys=['image', 'label'],
+            include=['image', 'label'],
             scales=(1.,)*6,
             degrees=0.0,
             translation=0.0
@@ -14,7 +14,7 @@ DEFAULT_TRANSFORM_SETTINGS = {
             tf.ToTensord(keys=['image', 'label'])
         ],
         'post_transforms': [
-            tf.AsDiscreted(keys=['label'], threshold_values=True)
+            tf.AsDiscreted(keys=['label'], threshold=0.5)
         ],
         'severity_controller': {
             'translation': [(-x, x, -x, x, -x, x) for x in np.linspace(0., 40., 6)[1:]],
@@ -23,21 +23,21 @@ DEFAULT_TRANSFORM_SETTINGS = {
     },
     'AnisoDownsample': {
         'transform': tio.RandomAnisotropy(
-            keys=['image', 'label'],
+            include=['image', 'label'],
             axes=(0, 1, 2)
         ),
         'pre_transforms': [
             tf.ToTensord(keys=['image', 'label'])
         ],
         'post_transforms': [
-            tf.AsDiscreted(keys=['label'], threshold_values=True)
+            tf.AsDiscreted(keys=['label'], threshold=0.5)
         ],
         'severity_controller': {
             'downsampling_range': [(x,)*2 for x in np.linspace(1., 10., 6)[1:]]
         }
     },
     'BiasField': {
-        'transform': tio.transforms.RandomBiasField(keys=['image']),
+        'transform': tio.transforms.RandomBiasField(include=['image']),
         'pre_transforms': [
             tf.ToTensord(keys=['image', 'label'])
         ],
@@ -67,12 +67,12 @@ DEFAULT_TRANSFORM_SETTINGS = {
         }
     },
     'ElasticDeformation': {
-        'transform': tio.transforms.RandomElasticDeformation(keys=['image', 'label']),
+        'transform': tio.transforms.RandomElasticDeformation(include=['image', 'label']),
         'pre_transforms': [
             tf.ToTensord(keys=['image', 'label'])
         ],
         'post_transforms': [
-            tf.AsDiscreted(keys=['label'], threshold_values=True)
+            tf.AsDiscreted(keys=['label'], threshold=0.5)
         ],
         'severity_controller': {
             'max_displacement': [(x,)*3 for x in np.linspace(0., 30., 6)[1:]]
@@ -80,7 +80,7 @@ DEFAULT_TRANSFORM_SETTINGS = {
     },
     'Ghosting': {
         'transform': tio.transforms.RandomGhosting(
-            keys=['image'],
+            include=['image'],
             axes=(0, 1)
         ),
         'pre_transforms': [
@@ -102,14 +102,14 @@ DEFAULT_TRANSFORM_SETTINGS = {
     #     'pre_transforms': [],
     #     'post_transforms': [
     #         tf.ToTensord(keys=['image', 'label']),
-    #         tf.AsDiscreted(keys=['label'], threshold_values=True)
+    #         tf.AsDiscreted(keys=['label'], threshold=0.5)
     #     ],
     #     'severity_controller': {
     #         'down_resolution.factor': np.linspace(1., 4.0, 6)[1:]
     #     }
     # },
     'RandomMotion': {
-        'transform': tio.transforms.RandomMotion(keys=['image']),
+        'transform': tio.transforms.RandomMotion(include=['image']),
         'pre_transforms': [
             tf.ToTensord(keys=['image', 'label'])
         ],
@@ -136,7 +136,7 @@ DEFAULT_TRANSFORM_SETTINGS = {
         }
     },
     'Smoothing': {
-        'transform': tio.transforms.Blur(keys=['image'], std=(0.0,)*3),
+        'transform': tio.transforms.Blur(include=['image'], std=(0.0,)*3),
         'pre_transforms': [
             tf.ToTensord(keys=['image', 'label'])
         ],

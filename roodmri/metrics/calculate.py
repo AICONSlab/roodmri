@@ -55,7 +55,7 @@ def calculate_metrics(
     if grouping_cols is None:
         grouping_cols = []
     agg = (df.groupby(grouping_cols + [transform_col, severity_col])
-           [list(metric_cols.keys())].agg(['mean', 'std'])) # agg. over subjects
+           [list(metric_cols.keys())].agg(['mean', 'std'])) # agg over subjects
     clean_rows = (agg.xs(clean_label, axis=0, level=transform_col)
                   .droplevel(severity_col, axis=0))   # get clean rows
     agg.drop(clean_label, axis=0, level=transform_col, inplace=True) # drop rows
