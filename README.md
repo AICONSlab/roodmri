@@ -1,6 +1,6 @@
-# roodmri
+# **ROOD-MRI**: **B**enchmarking the **R**obustness of deep learning segmentation models to **O**ut-**O**f-**D**istribution data in **MRI**
 
-**roodmri** is a platform for benchmarking the **R**obustness of deep learning segmentation models to **O**ut-**O**f-**D**istribution data in **MRI**.
+![image](https://user-images.githubusercontent.com/22750822/157528340-d112408c-e3de-4ce7-87f8-8afb57d8d3da.png)
 
 # Getting started
 
@@ -16,7 +16,7 @@ in step 2 using `calculate_metrics`
 
 ## 1. Generate a benchmarking dataset
 
-Skip this step if you're using a pre-existing benchmarking dataset, such as...
+Skip this step if you're using a pre-existing benchmarking dataset...
 
 If you have a dataset directory that looks like this:
 
@@ -52,6 +52,8 @@ input_files = [{'image': img, 'label': lbl} for img, lbl in zip(image_paths, lab
 Then, run the `DatasetGenerator` over the input files:
 
 ```
+from roodmri.data import DatasetGenerator
+
 out_path = '/home/user/data/benchmarking'   # specify the path to put benchmarking samples
 
 generator = DatasetGenerator(input_files, out_path)
@@ -90,6 +92,12 @@ For more details regarding the requirements for the csv/dataframe, see [metric_c
 After producing a csv/dataframe with segmentation results, you can use the `calculate_metrics` function to generate a suite of benchmarking metrics:
 
 ```
+from pathlib import Path
+
+import pandas as pd
+
+from roodmri.metrics import calculate_metrics
+
 data_path = '/home/user/data/model_evaluation_results.csv'   # change to location of csv
 save_path = '/home/user/benchmarking/'   # change to desired location of output files
 df = pd.read_csv(data_path)
