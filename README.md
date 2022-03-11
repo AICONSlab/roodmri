@@ -4,19 +4,19 @@
 
 # Getting started
 
-The [examples](https://github.com/AICONSlab/roodmri/tree/main/examples) folder contains examples of working with the `DatasetGenerator` class and calculating metrics from a dataframe of segmentation results using the `calculate_metrics` function.
+The [examples](https://github.com/AICONSlab/roodmri/tree/main/examples) folder contains example scripts for working with the `DatasetGenerator` class and `calculate_metrics` function. We will be adding more examples to this folder, stay tuned!
 
 The basic workflow is:
 
-1. Generate a benchmarking dataset from a pre-existing test set using the `DatasetGenerator` class
-2. Evaluate a trained model on the benchmarking dataset, generating a .csv
-or dataframe containing segmentation metrics for each sample
-3. Calculate benchmarking/robustness metrics from the .csv/dataframe generated
-in step 2 using `calculate_metrics`
+1. Generate a benchmarking dataset from a pre-existing test set using the `DatasetGenerator` class.
+2. Evaluate a trained model on the benchmarking dataset, generating a
+dataframe or .csv file containing segmentation metrics for each sample.
+3. Calculate benchmarking/robustness metrics from the dataframe/.csv generated
+in step 2 using `calculate_metrics`.
 
 ## 1. Generate a benchmarking dataset
 
-Skip this step if you're using a pre-existing benchmarking dataset...
+Skip this step if you're using a pre-existing benchmarking dataset (see links to existing datasets below).
 
 If you have a dataset directory that looks like this:
 
@@ -61,7 +61,9 @@ generator.generate_dataset()
 generator.save_filename_mappings(Path(out_path) / 'filename_mappings.csv')   # save new filename mappings
 ```
 
-The folder specified by `out_path` will now be populated with sub-folders named `Affine_1`, `Affine_2`, ..., `RicianNoise_4`, `RicianNoise_5`, ... containing transformed samples from the test set. In the name `RicianNoise_4`, `RicianNoise` refers to the transform applied and `4` refers to the severity level.
+The folder specified by `out_path` will now be populated with sub-folders named `Affine_1`, `Affine_2`, ..., `RicianNoise_4`, `RicianNoise_5`, ... containing transformed samples from the test set. In the name `RicianNoise_4`, `RicianNoise` refers to the transform applied and `4` refers to the severity level. The image below illustrates an example of the five default severity levels on a sample T1-weighted image for (a) ghosting, (b) isotropic downsampling, and (c) MRI (Rician) noise:
+
+![image](https://user-images.githubusercontent.com/22750822/157904816-5c2ea501-9059-4783-a590-d61c947fda82.png)
 
 For more details and examples using different initial directory structures, see the [examples/dataset](https://github.com/AICONSlab/roodmri/tree/main/examples/dataset) folder.
 
@@ -113,5 +115,14 @@ transform_level_metrics.to_csv(Path(save_path) / 'transform_level_metrics.csv')
 aggregated_metrics.to_csv(Path(save_path) / 'aggregated_metrics.csv')
 ```
 
+The image below demonstrates an example of using benchmarking metrics to comparing model architectures. The numbers in the lower- and upper-left corners of the top-row and bottom-row subplots, respectively, correspond to the mean degradation for each model (top row: Dice similarity coefficient; bottom row: modified (95th percentile) Hausdorff distance):
+
+![image](https://user-images.githubusercontent.com/22750822/157905587-e475c048-d2a7-453c-8d8d-8020afba9e6c.png)
+
 For more documentation, see [metric_calculations.py](https://github.com/AICONSlab/roodmri/blob/main/examples/metrics/metric_calculations.py) in the [examples](https://github.com/AICONSlab/roodmri/tree/main/examples) folder, or [calculate.py](https://github.com/AICONSlab/roodmri/blob/main/roodmri/metrics/calculate.py) which contains the `calculate_metrics` function. For metric formulations and how to use them, check out our paper.
 
+# Links to existing datasets
+
+See the list below for download links to existing benchmarking datasets:
+
+- Hippocampus segmentation dataset: https://www.dropbox.com/sh/t0id61jfwdq1dp9/AAAJyQLUP_6RSFjp-UOfa-Lxa?dl=0
