@@ -14,6 +14,8 @@ dataframe or .csv file containing segmentation metrics for each sample.
 3. Calculate benchmarking/robustness metrics from the dataframe/.csv generated
 in step 2 using `calculate_metrics`.
 
+Dependencies for this library are listed in the [requirements.txt](https://github.com/AICONSlab/roodmri/blob/main/requirements.txt) file (including [MONAI](https://github.com/Project-MONAI/MONAI) and [TorchIO](https://github.com/fepegar/torchio)).
+
 ## 1. Generate a benchmarking dataset
 
 Skip this step if you're using a pre-existing benchmarking dataset (see links to existing datasets below).
@@ -126,3 +128,22 @@ For more documentation, see [metric_calculations.py](https://github.com/AICONSla
 See the list below for download links to existing benchmarking datasets:
 
 - Hippocampus segmentation dataset: https://www.dropbox.com/sh/t0id61jfwdq1dp9/AAAJyQLUP_6RSFjp-UOfa-Lxa?dl=0
+
+# Credits
+
+**If you like this repository, please click on Star!**
+
+If you use this package for your research, please cite our paper:
+
+[Boone, L., Biparva, M., Forooshani, P. M., Ramirez, J., Masellis, M., Bartha, R., ... & Goubran, M. (2022). ROOD-MRI: Benchmarking the robustness of deep learning segmentation models to out-of-distribution and corrupted data in MRI. arXiv preprint arXiv:2203.06060.](https://arxiv.org/abs/2203.06060)
+
+```
+@article{boone2022rood,
+  title={ROOD-MRI: Benchmarking the robustness of deep learning segmentation models to out-of-distribution and corrupted data in MRI},
+  author={Boone, Lyndon and Biparva, Mahdi and Forooshani, Parisa Mojiri and Ramirez, Joel and Masellis, Mario and Bartha, Robert and Symons, Sean and Strother, Stephen and Black, Sandra E and Heyn, Chris and others},
+  journal={arXiv preprint arXiv:2203.06060},
+  year={2022}
+}
+```
+
+This work has been enabled by the flexibility and modularity of the [MONAI](https://github.com/Project-MONAI/MONAI) and [TorchIO](https://github.com/fepegar/torchio) libraries. If you like our work and aren't familiar with theirs already, go check them out!
